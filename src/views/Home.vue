@@ -5,6 +5,22 @@
         >Add User</router-link
       >
     </div>
+
+    <!-- spinner -->
+    <Spinner v-if="loading" />
+
+    <!-- error message -->
+    <div class="row mt-4">
+      <div class="col">
+        <p
+          class="text-danger fw-bold text-center"
+          v-if="!loading && errorMessage"
+        >
+          {{ errorMessage }}
+        </p>
+      </div>
+    </div>
+
     <div class="card-group">
       <div class="row">
         <div
@@ -55,6 +71,7 @@
 
 <script>
 import UserService from "../services/users";
+import Spinner from "@/components/Spinner.vue";
 
 export default {
   name: "HomeView",
@@ -76,6 +93,7 @@ export default {
       this.loading = false;
     }
   },
+  components: { Spinner },
 };
 </script>
 

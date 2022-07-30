@@ -8,18 +8,18 @@ export default class UserService {
     return axios.get(dataURL);
   }
 
-  static createUser(user) {
-    let dataURL = `${this.serverURL}/create`;
-    return axios.post(dataURL, user);
+  static createUser(people) {
+    let dataURL = `${this.serverURL}/people/`;
+    return axios.post(dataURL, people);
   }
 
   static updateUser(user, id) {
-    let dataURL = `${this.serverURL}/update/${id}`;
+    let dataURL = `${this.serverURL}/people/${id}`;
     return axios.put(dataURL, user);
   }
 
   static deleteUser(id) {
-    let dataURL = `${this.serverURL}/delete/${id}`;
+    let dataURL = `${this.serverURL}/people/${id}`;
     return axios.delete(dataURL);
   }
 }

@@ -2,13 +2,15 @@
   <div class="main">
     <div class="row">
       <div class="col-md-4">
-        <form>
+        <pre>{{ people }}</pre>
+        <form @submit.prevent="submitCreate()">
           <div class="mb-3">
             <input
               type="text"
               class="form-control"
               id="name"
               placeholder="Name"
+              v-model="people.name"
             />
           </div>
           <div class="mb-3">
@@ -17,6 +19,7 @@
               class="form-control"
               id="username"
               placeholder="Username"
+              v-model="people.username"
             />
           </div>
           <div class="mb-3">
@@ -25,6 +28,7 @@
               class="form-control"
               id="email"
               placeholder="Email address"
+              v-model="people.email"
             />
           </div>
           <div class="mb-3">
@@ -33,6 +37,7 @@
               class="form-control"
               id="phone"
               placeholder="Phone number"
+              v-model="people.phone"
             />
           </div>
           <div class="mb-3">
@@ -41,6 +46,7 @@
               class="form-control"
               id="website"
               placeholder="Web site"
+              v-model="people.website"
             />
           </div>
           <button type="submit" class="btn btn-success">Submit</button>
@@ -51,8 +57,40 @@
 </template>
 
 <script>
+import UserService from "@/services/users";
+
 export default {
   name: "AddUser",
+  data() {
+    return {
+      people: {
+        name: "",
+        username: "",
+        email: "",
+        phone: "",
+        website: "",
+      },
+    };
+  },
+
+  methods: {
+    increment() {
+      this.count++;
+    },
+
+    submitCreate: async function () {
+      try {
+        let response = await UserService.createUser(this.people);
+        if (response) {
+          return this.$router.push("/");
+        } else {
+          return this.$router.push("/add");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
 };
 </script>
 
