@@ -10,38 +10,34 @@
         <div
           class="card"
           style="width: 18rem"
-          v-for="(person, user) in people"
-          :key="user"
+          v-for="(person, key) in people"
+          :key="key"
         >
           <img
             class="card-img-top"
-            src="https://avatars.dicebear.com/v2/avataaars/uder.svg?options[mood][]=happy"
+            src="https://avatars.dicebear.com/v2/avataaars/{{ person.username }}.svg?options[mood][]=happy"
             alt="Card image cap"
           />
           <div class="card-body">
-            <h5
-              class="card-title"
-              v-for="(childItem, key) in person"
-              :key="key"
-            >
-              {{ childItem.username }}
+            <h5 class="card-title">
+              {{ person.name }}
             </h5>
             <div class="card-text">
               <i class="fa-solid fa-envelope"> </i>
-              <p class="icon" v-for="(childItem, key) in person" :key="key">
-                {{ childItem.email }}
+              <p class="icon">
+                {{ person.email }}
               </p>
               <br />
 
               <i class="fa-solid fa-phone"></i>
-              <p class="icon" v-for="(childItem, key) in person" :key="key">
-                {{ childItem.phone }}
+              <p class="icon">
+                {{ person.phone }}
               </p>
               <br />
 
               <i class="fa-solid fa-globe"></i>
-              <p class="icon" v-for="(childItem, key) in person" :key="key">
-                {{ childItem.web }}
+              <p class="icon">
+                {{ person.website }}
               </p>
             </div>
             <hr />
@@ -58,49 +54,27 @@
 </template>
 
 <script>
+import UserService from "../services/users";
+
 export default {
   name: "HomeView",
-  data() {
+  data: function () {
     return {
-      people: [
-        [
-          { username: "Umesha" },
-          { email: "umesha@gmail.com" },
-          { phone: "071778899004" },
-          { web: "wiki.com" },
-        ],
-        [
-          { username: "Nirmani" },
-          { email: "nirmani@gmail.com" },
-          { phone: "0717739961" },
-          { web: "roopasinghe.com" },
-        ],
-        [
-          { username: "Nirmani" },
-          { email: "nirmani@gmail.com" },
-          { phone: "0717739961" },
-          { web: "roopasinghe.com" },
-        ],
-        [
-          { username: "Nirmani" },
-          { email: "nirmani@gmail.com" },
-          { phone: "0717739961" },
-          { web: "roopasinghe.com" },
-        ],
-        [
-          { username: "Nirmani" },
-          { email: "nirmani@gmail.com" },
-          { phone: "0717739961" },
-          { web: "roopasinghe.com" },
-        ],
-        [
-          { username: "Nirmani" },
-          { email: "nirmani@gmail.com" },
-          { phone: "0717739961" },
-          { web: "roopasinghe.com" },
-        ],
-      ],
+      loading: false,
+      people: [],
+      errorMessage: null,
     };
+  },
+  created: async function () {
+    try {
+      this.loading = true;
+      let response = await UserService.getAllUsers();
+      this.people = response.data;
+      this.loading = false;
+    } catch (error) {
+      this.errorMessage = error;
+      this.loading = false;
+    }
   },
 };
 </script>
@@ -124,5 +98,6 @@ export default {
 }
 .icon {
   display: inline;
+  margin-left: 10px;
 }
 </style>
