@@ -2,10 +2,11 @@
   <div class="main">
     <div class="row">
       <div class="col-md-4">
-        <pre>{{ people }}</pre>
+        <h3 class="mb-3">Add User</h3>
         <form @submit.prevent="submitCreate()">
           <div class="mb-3">
             <input
+              required
               type="text"
               class="form-control"
               id="name"
@@ -15,6 +16,7 @@
           </div>
           <div class="mb-3">
             <input
+              required
               type="text"
               class="form-control"
               id="username"
@@ -24,6 +26,7 @@
           </div>
           <div class="mb-3">
             <input
+              required
               type="email"
               class="form-control"
               id="email"
@@ -33,6 +36,7 @@
           </div>
           <div class="mb-3">
             <input
+              required
               type="text"
               class="form-control"
               id="phone"
@@ -42,6 +46,7 @@
           </div>
           <div class="mb-3">
             <input
+              required
               type="text"
               class="form-control"
               id="website"
@@ -49,7 +54,11 @@
               v-model="people.website"
             />
           </div>
-          <button type="submit" class="btn btn-success">Submit</button>
+          <div class="button">
+            <button type="submit" class="btn btn-success form-btn">
+              Create
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -74,10 +83,6 @@ export default {
   },
 
   methods: {
-    increment() {
-      this.count++;
-    },
-
     submitCreate: async function () {
       try {
         let response = await UserService.createUser(this.people);
@@ -95,8 +100,19 @@ export default {
 </script>
 
 <style>
+h3 {
+  color: #006600;
+  text-align: center;
+}
 .main {
   height: 57vh;
   margin: 5%;
+}
+.button {
+  display: flex;
+  justify-content: center;
+}
+.form-btn {
+  width: 40%;
 }
 </style>

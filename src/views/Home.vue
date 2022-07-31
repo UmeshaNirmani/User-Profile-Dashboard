@@ -58,9 +58,15 @@
             </div>
             <hr />
             <p id="card-text">
-              <i class="fa-solid fa-heart"></i>
-              <i class="fa-solid fa-pen-to-square"></i>
-              <i class="fa-solid fa-trash-can"></i>
+              <button type="submit" class="btn">
+                <i class="fa-solid fa-heart"></i>
+              </button>
+              <button type="submit" class="btn">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button type="submit" class="btn" @click="deleteUser(person.id)">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
             </p>
           </div>
         </div>
@@ -75,6 +81,7 @@ import Spinner from "@/components/Spinner.vue";
 
 export default {
   name: "HomeView",
+  components: { Spinner },
   data: function () {
     return {
       loading: false,
@@ -93,7 +100,23 @@ export default {
       this.loading = false;
     }
   },
-  components: { Spinner },
+  methods: {
+    deleteUser: async function (id) {
+      try {
+        this.loading = true;
+        let response = await UserService.deleteUser(id);
+
+        if (response) {
+          let response = await UserService.getAllUsers();
+          this.people = response.data;
+          this.loading = false;
+        }
+      } catch (error) {
+        this.errorMessage = error;
+        this.loading = false;
+      }
+    },
+  },
 };
 </script>
 

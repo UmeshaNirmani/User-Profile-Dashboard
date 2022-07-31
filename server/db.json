@@ -231,28 +231,12 @@
       }
     },
     {
-      "name": "sdd",
-      "username": "wer",
-      "email": "df@gh.mn",
-      "phone": "1234",
-      "website": "dert",
+      "name": "Umesha",
+      "username": "Umesha Nirmani",
+      "email": "umesha@gmail.com",
+      "phone": "12345678",
+      "website": "umy.com",
       "id": 11
-    },
-    {
-      "name": "asd",
-      "username": "werr",
-      "email": "sd@jk.mn",
-      "phone": "1245",
-      "website": "dfgb",
-      "id": 12
-    },
-    {
-      "name": "sdf",
-      "username": "wer",
-      "email": "qw@df.bn",
-      "phone": "123",
-      "website": "erty",
-      "id": 13
     }
   ]
 }
