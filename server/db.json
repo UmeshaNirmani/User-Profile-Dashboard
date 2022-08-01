@@ -231,12 +231,22 @@
       }
     },
     {
-      "name": "Umesha",
-      "username": "Umesha Nirmani",
+      "name": "Umesha Nirmani",
+      "username": "umesha",
       "email": "umesha@gmail.com",
       "phone": "12345678",
-      "website": "umy.com",
+      "website": "arimac",
       "id": 11
+    }
+  ],
+  "favourites": [
+    {
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "id": 2
     }
   ]
 }

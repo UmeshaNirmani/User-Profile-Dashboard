@@ -22,4 +22,9 @@ export default class UserService {
     let dataURL = `${this.serverURL}/people/${id}`;
     return axios.delete(dataURL);
   }
+
+  static favouriteUser(id) {
+    let dataURL = `${this.serverURL}/favourites/`;
+    return axios.post(dataURL, id);
+  }
 }
