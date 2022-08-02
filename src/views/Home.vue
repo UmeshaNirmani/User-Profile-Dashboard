@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div class="card-group">
+    <div class="card-group" v-if="people.length > 0">
       <div class="row">
         <div class="card" style="width: 18rem" v-for="(person, key) in people" :key="key">
           <img class="card-img-top" :src="`https://avatars.dicebear.com/v2/avataaars/${person.username}.svg?options[mood][]=happy`" />
@@ -44,12 +44,13 @@
           <hr />
           <p id="card-text">
             <button type="submit" class="btn" @click="favouriteUser(person.id)">
-              <i class="fa-solid fa-heart" :class="{ clicked: isClicked }"></i>
+              <i class="fa-solid fa-heart" :class="{ clicked: person?.favorite === true ? true : false }"></i>
             </button>
 
-            <button type="submit" class="btn">
+            <button type="submit" class="btn" @click="editUser(person.id)">
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
+
             <button type="submit" class="btn" @click="deleteUser(person.id)">
               <i class="fa-solid fa-trash-can"></i>
             </button>
@@ -72,8 +73,6 @@ export default {
       loading: false,
       people: [],
       errorMessage: null,
-      favourites: {},
-      isClicked: false,
     };
   },
   created: async function () {
@@ -103,15 +102,30 @@ export default {
         this.loading = false;
       }
     },
+
     favouriteUser: async function (id) {
       try {
-        let response = await UserService.favouriteUser({ userId: id });
-        response.data = this.favourites;
-        this.isClicked = true;
+        let user = await UserService.getUserById(id);
+        let response = await UserService.favouriteUser(user.data.id, { "favorite": true });
+        console.log(response);
+        let result = await UserService.getAllUsers()
+        this.people = result.data;
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     },
+
+    editUser: async function (id) {
+      try {
+        // let user = await UserService.getUserById(id);
+        // if (user) {
+        // return this.$router.push("/add");
+        // }
+        return this.$router.push({ path: '/add', query: { userId: id } })
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
 };
 </script>

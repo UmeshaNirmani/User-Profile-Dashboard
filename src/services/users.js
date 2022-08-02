@@ -8,6 +8,11 @@ export default class UserService {
     return axios.get(dataURL);
   }
 
+  static getUserById(id) {
+    let dataURL = `${this.serverURL}/people/${id}`;
+    return axios.get(dataURL);
+  }
+
   static createUser(people) {
     let dataURL = `${this.serverURL}/people/`;
     return axios.post(dataURL, people);
@@ -23,8 +28,8 @@ export default class UserService {
     return axios.delete(dataURL);
   }
 
-  static favouriteUser(id) {
-    let dataURL = `${this.serverURL}/favourites/`;
-    return axios.post(dataURL, id);
+  static favouriteUser(id, favourite) {
+    let dataURL = `${this.serverURL}/people/${id}`;
+    return axios.patch(dataURL, favourite);
   }
 }

@@ -236,17 +236,8 @@
       "email": "umesha@gmail.com",
       "phone": "12345678",
       "website": "arimac",
-      "id": 11
-    }
-  ],
-  "favourites": [
-    {
-      "userId": 1,
-      "id": 1
-    },
-    {
-      "userId": 1,
-      "id": 2
+      "id": 11,
+      "favorite": true
     }
   ]
 }

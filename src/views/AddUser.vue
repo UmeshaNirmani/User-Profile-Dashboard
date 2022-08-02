@@ -2,57 +2,23 @@
   <div class="main">
     <div class="row">
       <div class="col-md-4">
-        <h3 class="mb-3">Add User</h3>
+        <h3 class="mb-3" v-if="create">Add User</h3>
+        <h3 class="mb-3" v-else>Update User</h3>
         <form @submit.prevent="submitCreate()">
           <div class="mb-3">
-            <input
-              required
-              type="text"
-              class="form-control"
-              id="name"
-              placeholder="Name"
-              v-model="people.name"
-            />
+            <input required type="text" class="form-control" id="name" placeholder="Name" v-model="people.name" />
           </div>
           <div class="mb-3">
-            <input
-              required
-              type="text"
-              class="form-control"
-              id="username"
-              placeholder="Username"
-              v-model="people.username"
-            />
+            <input required type="text" class="form-control" id="username" placeholder="Username" v-model="people.username" />
           </div>
           <div class="mb-3">
-            <input
-              required
-              type="email"
-              class="form-control"
-              id="email"
-              placeholder="Email address"
-              v-model="people.email"
-            />
+            <input required type="email" class="form-control" id="email" placeholder="Email address" v-model="people.email" />
           </div>
           <div class="mb-3">
-            <input
-              required
-              type="text"
-              class="form-control"
-              id="phone"
-              placeholder="Phone number"
-              v-model="people.phone"
-            />
+            <input required type="text" class="form-control" id="phone" placeholder="Phone number" v-model="people.phone" />
           </div>
           <div class="mb-3">
-            <input
-              required
-              type="text"
-              class="form-control"
-              id="website"
-              placeholder="Web site"
-              v-model="people.website"
-            />
+            <input required type="text" class="form-control" id="website" placeholder="Web site" v-model="people.website" />
           </div>
           <div class="button">
             <button type="submit" class="btn btn-success form-btn">
@@ -71,6 +37,19 @@ import UserService from "@/services/users";
 export default {
   name: "AddUser",
   data() {
+
+    console.log('#query params: ', this.$route.query)
+
+    const userId = this.$route.query?.userId;
+    if (userId) {
+      // let user = await UserService.getUserById(id);
+      console.log('is existing user')
+    }
+    else {
+      console.log('new user')
+    }
+
+
     return {
       people: {
         name: "",
@@ -79,6 +58,7 @@ export default {
         phone: "",
         website: "",
       },
+      create: true,
     };
   },
 
@@ -104,14 +84,17 @@ h3 {
   color: #006600;
   text-align: center;
 }
+
 .main {
   height: 57vh;
   margin: 5%;
 }
+
 .button {
   display: flex;
   justify-content: center;
 }
+
 .form-btn {
   width: 40%;
 }
