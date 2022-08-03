@@ -18,9 +18,9 @@ export default class UserService {
     return axios.post(dataURL, people);
   }
 
-  static updateUser(user, id) {
+  static updateUser(people, id) {
     let dataURL = `${this.serverURL}/people/${id}`;
-    return axios.put(dataURL, user);
+    return axios.put(dataURL, people);
   }
 
   static deleteUser(id) {

@@ -2,9 +2,10 @@
   <div class="main">
     <div class="row">
       <div class="col-md-4">
-        <h3 class="mb-3" v-if="create">Add User</h3>
-        <h3 class="mb-3" v-else>Update User</h3>
-        <form @submit.prevent="submitCreate()">
+        <h3 class="mb-3" v-if="people?.id">Update User</h3>
+        <h3 class="mb-3" v-else>Add User</h3>
+
+        <form @submit.prevent="submitUser(people.id)">
           <div class="mb-3">
             <input required type="text" class="form-control" id="name" placeholder="Name" v-model="people.name" />
           </div>
@@ -22,7 +23,8 @@
           </div>
           <div class="button">
             <button type="submit" class="btn btn-success form-btn">
-              Create
+              <div v-if="people?.id">Update</div>
+              <div v-else>Create</div>
             </button>
           </div>
         </form>
@@ -37,44 +39,52 @@ import UserService from "@/services/users";
 export default {
   name: "AddUser",
   data() {
-
-    console.log('#query params: ', this.$route.query)
-
-    const userId = this.$route.query?.userId;
-    if (userId) {
-      // let user = await UserService.getUserById(id);
-      console.log('is existing user')
-    }
-    else {
-      console.log('new user')
-    }
-
-
     return {
       people: {
+        id: "",
         name: "",
         username: "",
         email: "",
         phone: "",
         website: "",
       },
-      create: true,
+      userId: this.$route.query.id
     };
   },
 
+  created: async function () {
+    try {
+      this.loading = true;
+      let response = await UserService.getUserById(this.userId)
+      this.people = response.data
+      this.loading = false;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
   methods: {
-    submitCreate: async function () {
+    submitUser: async function (id) {
       try {
-        let response = await UserService.createUser(this.people);
-        if (response) {
-          return this.$router.push("/");
+        if (id) {
+          let response = await UserService.updateUser(this.people, id);
+          if (response) {
+            return this.$router.push("/");
+          } else {
+            return this.$router.push({ path: '/add/:', query: { id: this.userId } });
+          }
         } else {
-          return this.$router.push("/add");
+          let result = await UserService.createUser(this.people);
+          if (result) {
+            return this.$router.push("/");
+          } else {
+            return this.$router.push("/add/:");
+          }
         }
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
-    },
+    }
   },
 };
 </script>

@@ -235,8 +235,17 @@
       "username": "umesha",
       "email": "umesha@gmail.com",
       "phone": "12345678",
-      "website": "arimac",
+      "website": "arimaclanka",
       "id": 11,
+      "favorite": true
+    },
+    {
+      "id": 12,
+      "name": "Kumudu",
+      "username": "Chathupani",
+      "email": "kumudu@gmail.com",
+      "phone": "1234567",
+      "website": "hello.com",
       "favorite": true
     }
   ]

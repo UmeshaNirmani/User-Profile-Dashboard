@@ -1,7 +1,7 @@
 <template>
   <container fluid class="main">
     <div class="addBtn">
-      <router-link to="/add" type="button" class="add btn btn-success">Add User</router-link>
+      <router-link to="/add/null" type="button" class="add btn btn-success">Add User</router-link>
     </div>
 
     <!-- spinner -->
@@ -43,15 +43,15 @@
           </div>
           <hr />
           <p id="card-text">
-            <button type="submit" class="btn" @click="favouriteUser(person.id)">
+            <button type="button" class="btn" @click="favouriteUser(person.id)">
               <i class="fa-solid fa-heart" :class="{ clicked: person?.favorite === true ? true : false }"></i>
             </button>
 
-            <button type="submit" class="btn" @click="editUser(person.id)">
+            <button type="button" class="btn" @click="editUser(person.id)">
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
 
-            <button type="submit" class="btn" @click="deleteUser(person.id)">
+            <button type="button" class="btn" @click="deleteUser(person.id)">
               <i class="fa-solid fa-trash-can"></i>
             </button>
           </p>
@@ -117,11 +117,9 @@ export default {
 
     editUser: async function (id) {
       try {
-        // let user = await UserService.getUserById(id);
-        // if (user) {
-        // return this.$router.push("/add");
-        // }
-        return this.$router.push({ path: '/add', query: { userId: id } })
+        let user = await UserService.getUserById(id);
+        this.$router.push({ path: '/add/:', query: { id: id } })
+        console.log(user);
       } catch (error) {
         console.log(error);
       }
