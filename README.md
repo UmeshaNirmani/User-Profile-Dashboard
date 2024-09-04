@@ -1,4 +1,7 @@
-# assessment
+# User Profile Dashboard
+
+This is a single page app that displays the profile of 10 users (the data is obtained from an API endpoint). Each user's profile contains an avatar picture, name, email, phone, address, website, and the company name. <br>
+Features are: add new user, like the user, delete the user, and update existing user data  
 
 ## Project setup
 ```
